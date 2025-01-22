@@ -40,7 +40,7 @@
 
    此外，你需要将`passport\auth.guard.js`文件移动到`node_modules\@nestjs\passport\dist`，覆盖原始文件。
    - **代码 40-44 行：**
-   ```javascript
+   ``` javascript
    const  { req } = context.args[2]
    const [request, response] = [
        req,
@@ -48,7 +48,7 @@
    ];
    ```
    - **代码 61-70 行：**
-   ```javascript
+   ``` javascript
    handleRequest(err, user, info, context, status) {
       if (info) {
         console.log(info)
