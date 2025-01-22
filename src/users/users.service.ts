@@ -8,17 +8,22 @@ import { User } from './user.model';
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
-  async createUser(name: string, email: string): Promise<User> {
-    const newUser = new this.userModel({ name, email });
+  async createUser(
+    name: string,
+    email: string,
+    password: string,
+  ): Promise<User> {
+    const newUser = new this.userModel({ name, email, password });
     return newUser.save();
   }
 
   async findAll(): Promise<User[]> {
     return this.userModel.find().exec();
   }
-  async findOne(id: string): Promise<User> {
+
+  async findOne(username: string): Promise<User> {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    return this.userModel.findById(id).exec();
+    return this.userModel.findOne({ name: username }).exec();
   }
 }

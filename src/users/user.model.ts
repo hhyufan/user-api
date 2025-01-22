@@ -11,6 +11,10 @@ export class User extends Document {
 
   @Field()
   @Prop({ required: true })
+  password?: string;
+
+  @Field()
+  @Prop({ required: true })
   email: string;
 }
 
