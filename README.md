@@ -1,99 +1,137 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+感谢你的提醒！下面我将详细补充关于登录和注册的实现，以及验证的相关内容。
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# 用户 API 使用 NestJS
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+本项目是一个基于 NestJS、Mongoose 和 GraphQL 的用户管理 API。它提供用户注册、登录和个人资料管理的功能，使用 JWT 进行身份验证。
 
-## Description
+## 目录
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- [功能](#功能)
+- [安装](#安装)
+- [配置](#配置)
+- [使用](#使用)
+- [API 接口](#api-接口)
+- [许可证](#许可证)
 
-## Project setup
+## 功能
 
-```bash
-$ npm install
-```
+- 用户注册和登录
+- 基于 JWT 的身份验证
+- GraphQL API
+- MongoDB 数据存储
+- 输入验证
 
-## Compile and run the project
+## 安装
 
-```bash
-# development
-$ npm run start
+1. **克隆仓库：**
 
-# watch mode
-$ npm run start:dev
+   ```bash
+   git clone https://github.com/hhyufan/user-api.git
+   cd user-api
+   ```
 
-# production mode
-$ npm run start:prod
-```
+2. **安装依赖：**
 
-## Run tests
+   ```bash
+   npm install
+   ```
 
-```bash
-# unit tests
-$ npm run test
+3. **设置 MongoDB：**
 
-# e2e tests
-$ npm run test:e2e
+   确保你已安装并运行 MongoDB。可以使用本地实例或类似 MongoDB Atlas 的云服务。
 
-# test coverage
-$ npm run test:cov
-```
+4. **创建 `.env` 文件：**
 
-## Deployment
+   在项目根目录下创建 `.env` 文件，并添加以下变量：
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+   ```env
+   PORT=4000
+   GRAPHQL_PATH=/api
+   MONGODB_URI=mongodb://localhost:27017/user
+   JWT_SECRET=yourSecretKey
+   ```
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+   将 `yourSecretKey` 替换为一个强大的 JWT 签名密钥。
 
-```bash
-$ npm install -g mau
-$ mau deploy
-```
+## 配置
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+该应用配置了以下模块：
 
-## Resources
+- **MongooseModule**：用于 MongoDB 连接。
+- **GraphQLModule**：用于 GraphQL API 设置。
+- **ConfigModule**：用于管理环境变量。
+- **AuthModule**：用于身份验证功能。
+- **UsersModule**：用于用户管理功能。
 
-Check out a few resources that may come in handy when working with NestJS:
+## 使用
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+1. **启动应用：**
 
-## Support
+   ```bash
+   npm run start
+   ```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+2. **访问 GraphQL Playground：**
 
-## Stay in touch
+   打开浏览器，导航至 `http://localhost:4000/api` 来与 API 进行交互。
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## API 接口
 
-## License
+### 身份验证
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+#### 登录
+
+- **描述:** 用户通过用户名和密码进行登录，成功后返回 JWT 令牌。
+- **输入:**
+  ``` graphql
+  mutation {
+    login(loginInput: { username: "YuFan", password: "12345" })
+  }
+  ```
+- **响应:** 返回一个 JWT 令牌。
+
+#### 注册
+
+- **描述:** 用户通过提供姓名、电子邮件和密码进行注册，成功后返回 JWT 令牌。
+- **输入:**
+  ``` graphql
+  mutation {
+    register(registerInput: {name: "YuFan", email: "1838248655@qq.com", password: "123456"})
+  }
+  ```
+- **响应:** 返回一个 JWT 令牌。
+
+### 用户管理
+
+- **获取所有用户**
+    - **描述:** 获取所有用户信息，返回用户数组。需要 JWT 身份验证。
+    - **输入:**
+      ``` graphql
+      {
+        users {
+          name
+          email
+        }
+      }
+      ```
+    - **响应:** 返回用户数组。
+
+- **根据 ID 获取用户**
+    - **描述:** 根据用户 ID 获取用户信息。需要 JWT 身份验证。
+    - **输入:**
+      ``` graphql
+      {
+        user(id: "67903e2ec442b618a80987b1") {
+          name
+        }
+      }
+      ```
+    - **响应:** 返回用户对象。
+
+## 许可证
+
+本项目采用 MIT 许可证。有关更多详细信息，请参阅 [LICENSE](LICENSE) 文件。
+
+---
+
+以上是详细的登录、注册和验证实现的说明。如果还有其他问题或需要进一步的细节，请随时告知！

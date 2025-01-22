@@ -26,4 +26,9 @@ export class UsersService {
     // @ts-expect-error
     return this.userModel.findOne({ name: username }).exec();
   }
+  async findOneById(id: string): Promise<User> {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    return this.userModel.findOne({ _id: id }).exec();
+  }
 }
