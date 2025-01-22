@@ -18,6 +18,7 @@
 - 用户注册和登录
 - 基于 JWT 的身份验证
 - GraphQL API
+- bcrypt 密码哈希加盐
 - MongoDB 数据存储
 - 输入验证
 
@@ -35,12 +36,36 @@
    ```bash
    npm install
    ```
+3. **更新 @nestjs\passport 插件**
 
-3. **设置 MongoDB：**
+   此外，你需要将`passport\auth.guard.js`文件移动到`node_modules\@nestjs\passport\dist`，覆盖原始文件。
+   - **代码 40-44 行：**
+   ```javascript
+   const  { req } = context.args[2]
+   const [request, response] = [
+       req,
+       this.getResponse(context)
+   ];
+   ```
+   - **代码 61-70 行：**
+   ```javascript
+   handleRequest(err, user, info, context, status) {
+      if (info) {
+        console.log(info)
+        throw new common_1.UnauthorizedException();
+      }
+      if (err) {
+        throw err || new common_1.UnauthorizedException();
+      }
+      return user;
+    }
+   ```
+   通过以上改动，jwt可以正确处理request并进行正确的身份验证。
+4. **设置 MongoDB：**
 
    确保你已安装并运行 MongoDB。可以使用本地实例或类似 MongoDB Atlas 的云服务。
 
-4. **创建 `.env` 文件：**
+5. **创建 `.env` 文件：**
 
    在项目根目录下创建 `.env` 文件，并添加以下变量：
 
@@ -121,7 +146,7 @@
     - **输入:**
       ``` graphql
       {
-        user(id: "67903e2ec442b618a80987b1") {
+        user(id: yourUserId) {
           name
         }
       }
