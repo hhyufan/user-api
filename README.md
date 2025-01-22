@@ -1,4 +1,4 @@
-# 用户 API 使用 NestJS
+# 基于NestJS的用户身份验证API
 
 本项目是一个基于 NestJS、Mongoose 和 GraphQL 的用户管理 API。它提供用户注册、登录和个人资料管理的功能，使用 JWT 进行身份验证。
 
