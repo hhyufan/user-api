@@ -68,14 +68,19 @@
    在项目根目录下创建 `.env` 文件，并添加以下变量：
 
    ```env
-   PORT=4000
-   GRAPHQL_PATH=/api
-   MONGODB_URI=mongodb://localhost:27017/user
-   JWT_SECRET=yourSecretKey
+   PORT = <your_port>
+   GRAPHQL_PATH = <your_graphql_path>
+   JWT_SECRET = <your_secret_key>
    ```
 
    将 `yourSecretKey` 替换为一个强大的 JWT 签名密钥。
 
+6. **创建 `.env.data` 文件：**
+   ```env
+   MONGODB_URI = <your_mongodb_uri>
+   DATABASE_NAME = <your_database_name>
+   HTTP_PROXY = <your_http_proxy>
+   ```
 ## 配置
 
 该应用配置了以下模块：
